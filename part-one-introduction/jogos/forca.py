@@ -6,3 +6,6 @@ def jogar():
     print("********************************")
 
     print("Fim!")
+
+if __name__ == '__main__':
+    jogar()
