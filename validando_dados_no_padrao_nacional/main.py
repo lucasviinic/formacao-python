@@ -1,5 +1,4 @@
-from TelefonesBr import TelefonesBr
+from datas_br import DatasBr
 
-numero = "558196760893"
-telefone = TelefonesBr(numero)
-print(telefone)
+hoje = DatasBr()
+print(hoje.tempo_cadastro())
