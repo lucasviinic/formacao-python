@@ -1,4 +1,9 @@
-from datas_br import DatasBr
+import requests
+from acesso_cep import BuscaEndereco
 
-hoje = DatasBr()
-print(hoje.tempo_cadastro())
+cep = 50660180
+objeto_cep = BuscaEndereco(cep)
+print(objeto_cep)
+bairro, cidade, uf = objeto_cep.acessa_via_cep()
+
+print(bairro, cidade, uf)
