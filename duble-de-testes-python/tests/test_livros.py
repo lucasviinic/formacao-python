@@ -31,7 +31,7 @@ def test_consultar_livros_chama_executar_requisicao_usando_retorno_de_obter_url(
             consultar_livros("Agatha Christie")
             duble_executar_requisicao.assert_called_once_with("https:\\buscador")
 
-class DubleHTTPResponse:
+class StubHTTPResponse:
     
     def read(self):
         return b""
@@ -42,10 +42,19 @@ class DubleHTTPResponse:
     def __exit__(self, param1, param2, param3):
         pass
 
-def duble_de_urlopen(url, timeout):
-    return DubleHTTPResponse()
+def stub_de_urlopen(url, timeout):
+    return StubHTTPResponse()
 
 def test_executar_requisicao_retorna_tipo_string():
-    with patch("colecao.livros.urlopen", duble_de_urlopen):
+    with patch("colecao.livros.urlopen", stub_de_urlopen):
+        print(stub_de_urlopen)
+        resultado = executar_requisicao("https://buscarlivros?autor=Jk+Rowlings")
+        assert type(resultado) == str
+
+
+def test_executar_requisicao_retorna_resultado_tipo_str():
+    with patch("colecao.livros.urlopen") as duble_de_urlopen:
+        print(duble_de_urlopen)
+        duble_de_urlopen.return_value = StubHTTPResponse()
         resultado = executar_requisicao("https://buscarlivros?autor=Jk+Rowlings")
         assert type(resultado) == str
