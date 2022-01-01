@@ -52,9 +52,25 @@ def test_executar_requisicao_retorna_tipo_string():
         assert type(resultado) == str
 
 
-def test_executar_requisicao_retorna_resultado_tipo_str():
-    with patch("colecao.livros.urlopen") as duble_de_urlopen:
-        print(duble_de_urlopen)
-        duble_de_urlopen.return_value = StubHTTPResponse()
-        resultado = executar_requisicao("https://buscarlivros?autor=Jk+Rowlings")
-        assert type(resultado) == str
+# def test_executar_requisicao_retorna_resultado_tipo_str():
+#     with patch("colecao.livros.urlopen") as duble_de_urlopen:
+#         print(duble_de_urlopen)
+#         duble_de_urlopen.return_value = StubHTTPResponse()
+#         resultado = executar_requisicao("https://buscarlivros?autor=Jk+Rowlings")
+#         assert type(resultado) == str
+
+# def test_executar_requisicao_retorna_resultado_tipo_str():
+#     with patch("colecao.livros.urlopen", return_value=StubHTTPResponse()):
+#         resultado = executar_requisicao("https://buscarlivros?autor=Jk+Rowlings")
+#         assert type(resultado) == str
+
+# @patch("colecao.livros.urlopen", return_value=StubHTTPResponse())
+# def test_executar_requisicao_retorna_resultado_tipo_str(duble_de_urlopen):
+#     resultado = executar_requisicao("https://buscarlivros?autor=Jk+Rowlings")
+#     assert type(resultado) == str
+
+@patch("colecao.livros.urlopen")
+def test_executar_requisicao_retorna_resultado_tipo_str(duble_de_urlopen):
+    duble_de_urlopen.return_value = StubHTTPResponse()
+    resultado = executar_requisicao("https://buscarlivros?autor=Jk+Rowlings")
+    assert type(resultado) == str
